@@ -1,0 +1,14 @@
+{
+  "test_nll_main": 75.75,
+  "test_bpd_main": 0.1394,
+  "unconditional_nll": 205.85,
+  "unconditional_bpd": 0.3788,
+  "pixel_accuracy_mean": 0.9603,
+  "pixel_accuracy_first_row": 1.0,
+  "pixel_accuracy_last_row": 0.9997,
+  "ink_fraction_by_threshold": {
+    "0.3": 0.1528,
+    "0.5": 0.1342,
+    "0.7": 0.1135
+  }
+}

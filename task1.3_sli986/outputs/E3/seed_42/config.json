@@ -1,0 +1,34 @@
+{
+  "experiment": "E3",
+  "seed": 42,
+  "debug": false,
+  "epochs": 20,
+  "batch_size": 128,
+  "latent_dim": 100,
+  "learning_rate": 0.0002,
+  "betas": [
+    0.5,
+    0.999
+  ],
+  "weight_decay": 0.0,
+  "use_batchnorm": false,
+  "sample_seed": 2026,
+  "sample_count": 64,
+  "data_dir": "C:\\Users\\lenovo\\Desktop\\Homework\\CS5494\\teamproj\\data",
+  "sample_count_per_epoch": 60000,
+  "batches_per_epoch": 469,
+  "optimizer": "Adam",
+  "d_to_g_update_ratio": "1:1",
+  "loss": "BCEWithLogitsLoss",
+  "environment": {
+    "python_executable": "E:\\Anaconda\\envs\\cs5489\\python.exe",
+    "python": "3.11.16",
+    "torch": "2.10.0",
+    "device": "cuda",
+    "device_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda": "12.8",
+    "cudnn": 92600,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  }
+}

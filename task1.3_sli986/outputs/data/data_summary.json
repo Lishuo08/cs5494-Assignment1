@@ -1,0 +1,81 @@
+{
+  "dataset": "MNIST",
+  "split_used": "train",
+  "download_method": "torchvision.datasets.MNIST(train=True, download=True)",
+  "torchvision_primary_mirror": "https://ossci-datasets.s3.amazonaws.com/mnist/",
+  "raw_archive_cache": null,
+  "download_note": "torchvision also caches test files; they are not loaded or used here.",
+  "train_count": 60000,
+  "image_shape": [
+    1,
+    28,
+    28
+  ],
+  "dtype": "torch.float32",
+  "raw_pixel_range": [
+    0,
+    255
+  ],
+  "processed_pixel_range": [
+    -1.0,
+    1.0
+  ],
+  "preprocessing": "uint8 -> float32 / 255 -> 2*x - 1",
+  "binarization": false,
+  "augmentation": false,
+  "labels_used_for": "distribution statistics only; DataLoader yields images only",
+  "train_label_counts": [
+    5923,
+    6742,
+    5958,
+    6131,
+    5842,
+    5421,
+    5918,
+    6265,
+    5851,
+    5949
+  ],
+  "debug_count": 6000,
+  "debug_subset_seed": 42,
+  "debug_sampling": "torch.randperm(60000, dedicated generator with seed 42)[:6000]",
+  "debug_label_counts": [
+    595,
+    643,
+    601,
+    625,
+    565,
+    553,
+    585,
+    627,
+    632,
+    574
+  ],
+  "loader": {
+    "batch_size": 128,
+    "shuffle_each_epoch": true,
+    "drop_last": false,
+    "shuffle_seed": 42,
+    "num_workers": 0,
+    "rng": "dedicated torch.Generator; does not consume the GAN global RNG"
+  },
+  "loader_checks": {
+    "formal": {
+      "samples_seen": 60000,
+      "batches": 469,
+      "last_batch_size": 96
+    },
+    "debug": {
+      "samples_seen": 6000,
+      "batches": 47,
+      "last_batch_size": 112
+    }
+  },
+  "environment": {
+    "python_executable": "E:\\Anaconda\\envs\\cs5489\\python.exe",
+    "python": "3.11.16",
+    "torch": "2.10.0",
+    "torchvision": "0.25.0",
+    "matplotlib": "3.11.2"
+  }
+}

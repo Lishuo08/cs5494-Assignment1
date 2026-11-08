@@ -1,0 +1,42 @@
+{
+  "status": "completed",
+  "experiment": "E3",
+  "seed": 42,
+  "completed_epochs": 20,
+  "samples_per_epoch": 60000,
+  "total_samples_seen": 1200000,
+  "total_g_updates": 9380,
+  "total_d_updates": 9380,
+  "training_seconds": 48.32440729999507,
+  "timing_scope": "Epoch loop including batch updates, epoch sampling, checkpoint and metric writes; excludes data/model setup, epoch-0 sampling, final curve plotting and summary writing.",
+  "epoch_timing_scope": "Batch updates, epoch sampling and checkpoint writes; each timing row is written just after its measurement.",
+  "d_probability_scope": "D-stage forward outputs before the D optimizer step",
+  "environment": {
+    "python_executable": "E:\\Anaconda\\envs\\cs5489\\python.exe",
+    "python": "3.11.16",
+    "torch": "2.10.0",
+    "device": "cuda",
+    "device_name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda": "12.8",
+    "cudnn": 92600,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false
+  },
+  "final_metrics": {
+    "epoch": 20,
+    "g_loss": 1.1782660831451417,
+    "d_loss": 1.024357198524475,
+    "d_real_prob": 0.6375684776941936,
+    "d_fake_prob": 0.3625513722260793,
+    "samples": 60000,
+    "batches": 469,
+    "last_batch_size": 96,
+    "g_updates": 469,
+    "d_updates": 469,
+    "epoch_seconds": 2.375178300004336,
+    "cumulative_seconds": 48.32420920000004
+  },
+  "final_checkpoint": "checkpoints/epoch_020.pt",
+  "final_samples": "samples/epoch_020.png",
+  "is_formal_comparison": true
+}

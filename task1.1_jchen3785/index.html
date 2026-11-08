@@ -1,0 +1,100 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>CS5494 Assignment 1 - task 1.1 package</title>
+<meta name="author" content="CHEN Jiaqi (jchen3785)">
+<style>
+body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 10.5pt;
+       color: #1f1f1f; max-width: 62rem; margin: 2rem auto; padding: 0 1.5rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .2rem 0; }
+.sub { color: #555; margin-bottom: 1.2rem; }
+h2 { font-size: 1.05rem; margin: 1.6rem 0 .5rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th, td { border-bottom: 1px solid #ddd; padding: .35rem .5rem; text-align: left;
+          vertical-align: top; }
+th { background: #f4f4f4; }
+tr.group td { background: #faeff2; font-weight: 600; color: #8c1d40; }
+.size { white-space: nowrap; color: #666; width: 6rem; }
+.missing { color: #b00020; }
+code { background: #f5f5f5; padding: .1rem .3rem; }
+.box { background: #f7f9fb; border-left: 4px solid #8c1d40; padding: .7rem 1rem;
+        margin: 1rem 0; font-size: .93rem; }
+ol { margin: .3rem 0 .3rem 1.2rem; }
+</style></head>
+<body>
+<h1>CS5494 Assignment 1 &mdash; task 1.1: Fully Visible Sigmoid Belief Network</h1>
+<div class="sub">CHEN Jiaqi &nbsp;|&nbsp; jchen3785 &nbsp;|&nbsp; CityU MSc AI &nbsp;|&nbsp;
+merged report due Sunday 8 November 2026</div>
+
+<div class="box">
+<b>Quickstart.</b> <code>pip install -r requirements.txt</code> &rarr;
+<code>python run_experiments.py</code> (~2-3 min on the GPU) &rarr;
+<code>python make_figures.py</code>. The report section is
+<a href="report/section_1_1_fvsbn.pdf">report/section_1_1_fvsbn.pdf</a>.
+</div>
+
+<h2>What is in this folder</h2>
+<table>
+<tr><th>file</th><th>size</th><th>what it is</th></tr>
+<tr class="group"><td colspan="3">Read first</td></tr>
+<tr><td><a href="START_HERE.md">START_HERE.md</a></td><td class="size">4 KB</td><td>reading order, quickstart, 中文摘要 - start with this one</td></tr>
+<tr><td><a href="index.html">index.html</a></td><td class="size">this page</td><td>this page</td></tr>
+<tr><td><a href="HANDOFF.md">HANDOFF.md</a></td><td class="size">3 KB</td><td>what is done, key numbers, what I still need from tasks 1.2 / 1.3</td></tr>
+<tr><td><a href="message_to_teammates.txt">message_to_teammates.txt</a></td><td class="size">2 KB</td><td>ready-to-paste message for B and C (Chinese): links, numbering, what I need</td></tr>
+<tr><td><a href="README.md">README.md</a></td><td class="size">5 KB</td><td>environment, run order, data contract, figures, all numbers</td></tr>
+<tr><td><a href="readme.txt">readme.txt</a></td><td class="size">2 KB</td><td>the same run instructions in plain text (assignment asks for readme.txt)</td></tr>
+<tr><td><a href="requirements.txt">requirements.txt</a></td><td class="size">130 B</td><td>pinned package versions used for the numbers</td></tr>
+<tr class="group"><td colspan="3">Report</td></tr>
+<tr><td><a href="report/section_1_1_fvsbn.pdf">report/section_1_1_fvsbn.pdf</a></td><td class="size">353 KB</td><td>the same section rendered, 5 pages with figures</td></tr>
+<tr><td><a href="report/section_1_1_fvsbn.md">report/section_1_1_fvsbn.md</a></td><td class="size">10 KB</td><td>my report section, Markdown source</td></tr>
+<tr><td><a href="report/report_skeleton.md">report/report_skeleton.md</a></td><td class="size">5 KB</td><td>team report outline; TODOs mark the 1.2 / 1.3 parts</td></tr>
+<tr class="group"><td colspan="3">Code</td></tr>
+<tr><td><a href="data.py">data.py</a></td><td class="size">5 KB</td><td>shared MNIST loader, binarisation, pixel order, subset, plotting</td></tr>
+<tr><td><a href="fvsbn.py">fvsbn.py</a></td><td class="size">2 KB</td><td>the model: logits(), nll(), ancestral sample()</td></tr>
+<tr><td><a href="train_fvsbn.py">train_fvsbn.py</a></td><td class="size">6 KB</td><td>one training run (Adam, staged samples, timings, JSON/npz/pt)</td></tr>
+<tr><td><a href="run_experiments.py">run_experiments.py</a></td><td class="size">3 KB</td><td>main run + 3 ablations (13 runs in total)</td></tr>
+<tr><td><a href="make_figures.py">make_figures.py</a></td><td class="size">5 KB</td><td>loss curve, stage grid, sample grid, ablation figures</td></tr>
+<tr><td><a href="analyze_fvsbn.py">analyze_fvsbn.py</a></td><td class="size">4 KB</td><td>unconditional baseline, pixel accuracy, predictive maps</td></tr>
+<tr><td><a href="summarize.py">summarize.py</a></td><td class="size">2 KB</td><td>all runs -> build/results_summary.csv / .md</td></tr>
+<tr><td><a href="build_demo_nb.py">build_demo_nb.py</a></td><td class="size">4 KB</td><td>builds and executes demo_data.ipynb</td></tr>
+<tr><td><a href="demo_data.ipynb">demo_data.ipynb</a></td><td class="size">7 KB</td><td>executed tour of the shared data module (11 cells, 5 code)</td></tr>
+<tr class="group"><td colspan="3">Results and figures</td></tr>
+<tr><td><a href="build/results_summary.csv">build/results_summary.csv</a></td><td class="size">963 B</td><td>every run: config, params, NLL, bits/dim, timings</td></tr>
+<tr><td><a href="build/results_summary.md">build/results_summary.md</a></td><td class="size">1 KB</td><td>the same table as Markdown</td></tr>
+<tr><td><a href="build/analysis.json">build/analysis.json</a></td><td class="size">329 B</td><td>baseline, pixel accuracy, ink fractions</td></tr>
+<tr><td><a href="build/figs/fig_loss.png">build/figs/fig_loss.png</a></td><td class="size">75 KB</td><td>Figure 3.1 training / test curves</td></tr>
+<tr><td><a href="build/figs/fig_stages.png">build/figs/fig_stages.png</a></td><td class="size">32 KB</td><td>Figure 3.2 samples at epochs 1, 5, 10, 25, 50</td></tr>
+<tr><td><a href="build/figs/fig_samples.png">build/figs/fig_samples.png</a></td><td class="size">20 KB</td><td>Figure 3.3 40 final samples</td></tr>
+<tr><td><a href="build/figs/fig_predmap.png">build/figs/fig_predmap.png</a></td><td class="size">19 KB</td><td>Figure 3.4 test image, conditional probability, argmax</td></tr>
+<tr><td><a href="build/figs/fig_ablation.png">build/figs/fig_ablation.png</a></td><td class="size">47 KB</td><td>Figure 3.5 ablation bars</td></tr>
+<tr><td><a href="build/figs/fig_ablation_samples.png">build/figs/fig_ablation_samples.png</a></td><td class="size">53 KB</td><td>samples for every ablation setting</td></tr>
+<tr><td><a href="build/figs/fig_pixel_acc.png">build/figs/fig_pixel_acc.png</a></td><td class="size">27 KB</td><td>per-pixel teacher-forcing accuracy map</td></tr>
+<tr class="group"><td colspan="3">Housekeeping</td></tr>
+<tr><td><a href="build_section_pdf.py">build_section_pdf.py</a></td><td class="size">4 KB</td><td>renders the report section to PDF</td></tr>
+<tr><td><a href="make_index.py">make_index.py</a></td><td class="size">8 KB</td><td>builds this page</td></tr>
+<tr><td><a href="check_package.py">check_package.py</a></td><td class="size">4 KB</td><td>verifies that the folder and the zip are complete</td></tr>
+<tr><td><a href="pack_zip.py">pack_zip.py</a></td><td class="size">1 KB</td><td>rebuilds the zip (forward slashes, so it unzips cleanly on any OS)</td></tr>
+</table>
+
+<h2>Key numbers (test split, binarised at threshold 0.5)</h2>
+<table>
+<tr><th>model</th><th>NLL / image</th><th>bits / dim</th><th>params</th>
+<th>training</th><th>100 samples</th></tr>
+<tr><td>unconditional Bernoulli</td><td>205.85</td><td>0.3788</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>FVSBN, 60k images, 50 epochs</td><td>75.75</td><td><b>0.1394</b></td><td>615,440</td><td>30-50 s</td><td>0.06 s</td></tr>
+</table>
+<p>Bits per dimension is NLL / (784 * ln 2); lower is better. The unconditional
+baseline predicts each pixel from its training marginal and ignores the prefix.</p>
+
+<h2>Still open</h2>
+<ol>
+<li>Task 1.2 (neural autoregressive) and task 1.3 (GAN) sections, plus their rows in the
+comparison table of <a href="report/report_skeleton.md">report/report_skeleton.md</a>.</li>
+<li>The shared code link (Colab / Drive) for the merged report.</li>
+<li>The final file must be named <code>&lt;id&gt;_&lt;id&gt;_&lt;id&gt;.pdf</code>.</li>
+<li>All three tasks must use <code>data.load_binarized</code> (1.2) and
+<code>data.load_gray</code> (1.3), otherwise the bits/dim column is not comparable.</li>
+</ol>
+
+<p class="sub">Regenerate this page with <code>python make_index.py</code>; check the folder
+with <code>python check_package.py</code>.</p>
+</body></html>
